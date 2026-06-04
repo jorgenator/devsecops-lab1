@@ -1,0 +1,17 @@
+name: SCA - Trivy
+
+on: [push]
+
+jobs:
+  trivy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run Trivy (filesystem scan)
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          scan-ref: '.'
+          format: 'table'
+          exit-code: '0'       # no falla el pipeline, solo reporta
+          severity: 'HIGH,CRITICAL'
